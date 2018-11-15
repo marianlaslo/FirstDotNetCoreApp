@@ -11,7 +11,7 @@ namespace FirstDotNetCoreApp.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class FormFilesController : ControllerBase
+    public class FilesController : ControllerBase
     {
         [HttpGet]
         public IEnumerable<FormFile> Get()
@@ -35,7 +35,7 @@ namespace FirstDotNetCoreApp.Controllers
             return FormFiles;
         }
 
-        [HttpPost("UploadFormFiles")]
+        [HttpPost("UploadFiles")]
         public async Task<IActionResult> Post(List<IFormFile> files)
         {
             long size = files.Sum(f => f.Length);
