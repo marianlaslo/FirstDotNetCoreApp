@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace FirstDotNetCoreApp.Models
 {
-    public class Document
+    public class FormFile
     {
         public int Id { get; set; }
 
@@ -14,5 +15,9 @@ namespace FirstDotNetCoreApp.Models
         public string ContentType { get; set; }
 
         public byte[] Data { get; set; }
+
+        public long Length { get; set; }
+
+        public Stream FileStream { get; set; }
     }
 }
