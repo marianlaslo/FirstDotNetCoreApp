@@ -16,7 +16,7 @@ namespace FirstDotNetCoreApp.Controllers
         [HttpGet]
         public ActionResult<IEnumerable<FormFile>> Get()
         {
-            var FormFiles = new List<FormFile>
+            var formFiles = new List<FormFile>
             {
                 new FormFile
                 {
@@ -32,12 +32,14 @@ namespace FirstDotNetCoreApp.Controllers
                 }
             };
 
-            return FormFiles;
+            return formFiles;
         }
 
         [HttpPost("UploadFile")]
         public ActionResult PostFile(IFormFile uploadedFile)
         {
+            var path = Path.GetTempFileName();
+
             return Ok();
         }
 
