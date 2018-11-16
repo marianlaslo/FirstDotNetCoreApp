@@ -35,25 +35,31 @@ namespace FirstDotNetCoreApp.Controllers
             return FormFiles;
         }
 
-        [HttpPost("UploadFiles")]
-        public async Task<IActionResult> Post(List<IFormFile> files)
+        [HttpPost("UploadFile")]
+        public ActionResult PostFile(IFormFile uploadedFile)
         {
-            long size = files.Sum(f => f.Length);
-
-            var filePath = Path.GetTempFileName();
-
-            foreach (var file in files)
-            {
-                if (file.Length > 0)
-                {
-                    using (var stream = new FileStream(filePath, FileMode.Create))
-                    {
-                        await file.CopyToAsync(stream);
-                    }
-                }
-            }
-
-            return Ok(new { count = files.Count, size, filePath });
+            return Ok();
         }
+
+        //[HttpPost("UploadFiles")]
+        //public async Task<IActionResult> Post(List<IFormFile> files)
+        //{
+        //    long size = files.Sum(f => f.Length);
+
+        //    var filePath = Path.GetTempFileName();
+
+        //    foreach (var file in files)
+        //    {
+        //        if (file.Length > 0)
+        //        {
+        //            using (var stream = new FileStream(filePath, FileMode.Create))
+        //            {
+        //                await file.CopyToAsync(stream);
+        //            }
+        //        }
+        //    }
+
+        //    return Ok(new { count = files.Count, size, filePath });
+        //}
     }
 }
