@@ -14,7 +14,7 @@ namespace FirstDotNetCoreApp.Controllers
     public class FilesController : ControllerBase
     {
         [HttpGet]
-        public IEnumerable<FormFile> Get()
+        public ActionResult<IEnumerable<FormFile>> Get()
         {
             var FormFiles = new List<FormFile>
             {

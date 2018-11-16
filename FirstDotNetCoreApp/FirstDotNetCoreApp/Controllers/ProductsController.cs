@@ -10,7 +10,7 @@ namespace FirstDotNetCoreApp.Controllers
     {
         // GET api/products
         [HttpGet]
-        public IEnumerable<Product> Get()
+        public ActionResult<IEnumerable<Product>> Get()
         {
             var products = new List<Product>
             {
@@ -34,7 +34,7 @@ namespace FirstDotNetCoreApp.Controllers
 
         // GET api/products/id
         [HttpGet("{id}")]
-        public Product Get(int id)
+        public ActionResult<Product> Get(int id)
         {
             return new Product
             {
@@ -46,23 +46,23 @@ namespace FirstDotNetCoreApp.Controllers
 
         // POST api/products
         [HttpPost]
-        public void Post([FromBody] Product product)
+        public ActionResult Post([FromBody] Product product)
         {
-            
+            return Ok();
         }
 
         // PUT api/products/id
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] Product product)
+        public ActionResult Put(int id, [FromBody] Product product)
         {
-            
+            return Ok();
         }
 
         // DELETE api/products/id
         [HttpDelete("{id}")]
-        public void Delete(int id)
-        { 
-            
+        public ActionResult Delete(int id)
+        {
+            return Ok();
         }
     }
 }
