@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using FirstDotNetCoreApp.Models;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -13,6 +14,13 @@ namespace FirstDotNetCoreApp.Controllers
     [ApiController]
     public class FilesController : ControllerBase
     {
+        private IHostingEnvironment _hostingEnvironment;
+
+        public FilesController(IHostingEnvironment hostingEnvironment)
+        {
+            _hostingEnvironment = hostingEnvironment;
+        }
+
         [HttpGet]
         public ActionResult<IEnumerable<FormFile>> Get()
         {
@@ -36,15 +44,31 @@ namespace FirstDotNetCoreApp.Controllers
         }
 
         [HttpPost("UploadFile")]
-        public ActionResult PostFile(IFormFile uploadedFile)
+        public ActionResult PostFile([FromForm] IFormFile uploadedFile)
         {
-            var path = Path.GetTempFileName();
+            string folderName = "Upload";
+            string webRootPath = _hostingEnvironment.ContentRootPath;
+            string newPath = Path.Combine(webRootPath, folderName);
+
+            if (!Directory.Exists(newPath))
+            {
+                Directory.CreateDirectory(newPath);
+            }
+
+            if (uploadedFile.Length > 0)
+            {
+                string fullPath = Path.Combine(newPath, uploadedFile.FileName);
+                using (var stream = new FileStream(fullPath, FileMode.Create))
+                {
+                    uploadedFile.CopyTo(stream);
+                }
+            }
 
             return Ok();
         }
 
         //[HttpPost("UploadFiles")]
-        //public async Task<IActionResult> Post(List<IFormFile> files)
+        //public async Task<IActionResult> Post([FromForm] List<IFormFile> files)
         //{
         //    long size = files.Sum(f => f.Length);
 
