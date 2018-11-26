@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -18,6 +19,7 @@ namespace FirstDotNetCoreApp.Models
 
         public long Length { get; set; }
 
+        [NotMapped]
         public Stream FileStream { get; set; }
     }
 }
