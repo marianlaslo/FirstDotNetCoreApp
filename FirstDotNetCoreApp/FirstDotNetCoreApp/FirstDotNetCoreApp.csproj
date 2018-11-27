@@ -5,6 +5,17 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Migrations\20181126152457_InitialCreate.cs" />
+    <Compile Remove="Migrations\20181126152457_InitialCreate.Designer.cs" />
+    <Compile Remove="Migrations\20181127144004_SeedData.cs" />
+    <Compile Remove="Migrations\20181127144004_SeedData.Designer.cs" />
+    <Compile Remove="Migrations\20181127144554_MakeIdsIdentity.cs" />
+    <Compile Remove="Migrations\20181127144554_MakeIdsIdentity.Designer.cs" />
+    <Compile Remove="Migrations\20181127144805_MakeIdsIdentity.cs" />
+    <Compile Remove="Migrations\20181127144805_MakeIdsIdentity.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Folder Include="wwwroot\" />
   </ItemGroup>
 
