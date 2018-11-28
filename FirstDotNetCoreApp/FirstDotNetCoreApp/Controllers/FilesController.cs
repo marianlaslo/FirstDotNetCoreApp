@@ -14,7 +14,7 @@ namespace FirstDotNetCoreApp.Controllers
     [ApiController]
     public class FilesController : ControllerBase
     {
-        private IHostingEnvironment _hostingEnvironment;
+        private readonly IHostingEnvironment _hostingEnvironment;
 
         public FilesController(IHostingEnvironment hostingEnvironment)
         {
