@@ -23,6 +23,12 @@ namespace FirstDotNetCoreApp.DataAccess.Repositories.Abstractions
             return MyDbContext.Set<T>().Where(expression);
         }
 
+        public T GetById<TId>(TId id)
+        {
+            var entity = MyDbContext.Set<T>().Find(id);
+            return entity;
+        }
+
         public T Create(T entity)
         {
             MyDbContext.Set<T>().Add(entity);

@@ -24,7 +24,8 @@ namespace FirstDotNetCoreApp.BusinessLayer.Services
 
         public FormFile GetFormFile(int id)
         {
-            throw new NotImplementedException();
+            var formFile = _formFileRepository.GetById(id);
+            return formFile;
         }
 
         public FormFile CreateFormFile(FormFile formFile)

@@ -3,6 +3,7 @@ using FirstDotNetCoreApp.DataAccess.Repositories.Abstractions;
 using FirstDotNetCoreApp.Models;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace FirstDotNetCoreApp.BusinessLayer.Services
 {
@@ -22,9 +23,8 @@ namespace FirstDotNetCoreApp.BusinessLayer.Services
 
         public Product GetProduct(int id)
         {
-            // var products = _productRepository.FindByCondition(p => p.Id == id);
-            // return products.
-            throw new NotImplementedException();
+            var product = _productRepository.GetById(id);
+            return product;
         }
 
         public Product CreateProduct(Product product)

@@ -10,6 +10,8 @@ namespace FirstDotNetCoreApp.DataAccess.Repositories.Abstractions
 
         IQueryable<T> FindByCondition(Expression<Func<T, bool>> expression);
 
+        T GetById<V>(V id);
+
         T Create(T entity);
 
         T Update(T entity);
