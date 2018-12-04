@@ -1,11 +1,18 @@
-﻿using System;
+﻿using FirstDotNetCoreApp.Models;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace FirstDotNetCoreApp.BusinessLayer.Services.Abstractions
 {
     public interface IProductService
     {
+        IEnumerable<Product> GetProducts();
+
+        Product GetProduct(int id);
+
+        Product CreateProduct(Product product);
+
+        Product UpdateProduct(Product product);
+
+        void DeleteProduct(Product product);
     }
 }
