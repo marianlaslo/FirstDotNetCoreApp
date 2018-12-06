@@ -41,9 +41,10 @@ namespace FirstDotNetCoreApp.DataAccess.Repositories.Abstractions
             return entity;
         }
 
-        public void Delete(T entity)
+        public void Delete<TId>(TId id)
         {
-            MyDbContext.Set<T>().Remove(entity);
+            var item = MyDbContext.Set<T>().Find(id);
+            MyDbContext.Set<T>().Remove(item);
         }
 
         public void Save()

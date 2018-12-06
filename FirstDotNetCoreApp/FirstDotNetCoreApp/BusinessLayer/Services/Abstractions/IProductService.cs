@@ -13,6 +13,6 @@ namespace FirstDotNetCoreApp.BusinessLayer.Services.Abstractions
 
         Product UpdateProduct(Product product);
 
-        void DeleteProduct(Product product);
+        void DeleteProduct(int id);
     }
 }

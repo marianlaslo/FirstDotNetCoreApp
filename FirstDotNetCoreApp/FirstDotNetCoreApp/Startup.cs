@@ -1,10 +1,14 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using FirstDotNetCoreApp.BusinessLayer.Services;
+using FirstDotNetCoreApp.BusinessLayer.Services.Abstractions;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Swashbuckle.AspNetCore.Swagger;
 using FirstDotNetCoreApp.Helpers;
 using FirstDotNetCoreApp.DataAccess;
+using FirstDotNetCoreApp.DataAccess.Repositories;
+using FirstDotNetCoreApp.DataAccess.Repositories.Abstractions;
 using Microsoft.EntityFrameworkCore;
 
 namespace FirstDotNetCoreApp
@@ -37,6 +41,9 @@ namespace FirstDotNetCoreApp
 
                 c.OperationFilter<FileUploadOperation>(); //Register File Upload Operation Filter
             });
+
+            services.AddScoped<IProductRepository, ProductRepository>();
+            services.AddScoped<IProductService, ProductService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
