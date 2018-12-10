@@ -38,9 +38,9 @@ namespace FirstDotNetCoreApp.BusinessLayer.Services
             return _formFileRepository.Update(formFile);
         }
 
-        public void DeleteFormFile(FormFile formFile)
+        public void DeleteFormFile(int id)
         {
-            _formFileRepository.Delete(formFile);
+            _formFileRepository.Delete(id);
         }
     }
 }

@@ -13,6 +13,6 @@ namespace FirstDotNetCoreApp.BusinessLayer.Services.Abstractions
 
         FormFile UpdateFormFile(FormFile formFile);
 
-        void DeleteFormFile(FormFile formFile);
+        void DeleteFormFile(int id);
     }
 }

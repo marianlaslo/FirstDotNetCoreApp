@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using FirstDotNetCoreApp.BusinessLayer.Services.Abstractions;
 using FirstDotNetCoreApp.Models;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -15,32 +16,20 @@ namespace FirstDotNetCoreApp.Controllers
     public class FilesController : ControllerBase
     {
         private readonly IHostingEnvironment _hostingEnvironment;
+        private readonly IFormFileService _formFileService;
 
-        public FilesController(IHostingEnvironment hostingEnvironment)
+        public FilesController(IHostingEnvironment hostingEnvironment, IFormFileService formFileService)
         {
             _hostingEnvironment = hostingEnvironment;
+            _formFileService = formFileService;
         }
 
         [HttpGet]
         public ActionResult<IEnumerable<FormFile>> Get()
         {
-            var formFiles = new List<FormFile>
-            {
-                new FormFile
-                {
-                    Id = 1,
-                    Name = "formFile1",
-                    Data = new byte[10]
-                },
-                new FormFile
-                {
-                    Id = 2,
-                    Name = "formFile2",
-                    Data = new byte[10]
-                }
-            };
+            var formFiles = _formFileService.GetFormFiles();
 
-            return formFiles;
+            return Ok(formFiles);
         }
 
         [HttpPost("UploadFile")]
