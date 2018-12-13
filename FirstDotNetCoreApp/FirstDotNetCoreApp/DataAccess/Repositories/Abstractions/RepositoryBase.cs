@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Linq.Expressions;
+using FirstDotNetCoreApp.Models.Abstractions;
 
 namespace FirstDotNetCoreApp.DataAccess.Repositories.Abstractions
 {
@@ -43,8 +44,12 @@ namespace FirstDotNetCoreApp.DataAccess.Repositories.Abstractions
 
         public void Delete<TId>(TId id)
         {
-            var item = MyDbContext.Set<T>().Find(id);
-            MyDbContext.Set<T>().Remove(item);
+            var instance = Activator.CreateInstance<T>();
+            var entity = (IEntity<TId>) instance;
+            entity.Id = id;
+            var castedEntity = (T) entity;
+            MyDbContext.Set<T>().Attach(castedEntity);
+            MyDbContext.Set<T>().Remove(castedEntity);
         }
 
         public void Save()
