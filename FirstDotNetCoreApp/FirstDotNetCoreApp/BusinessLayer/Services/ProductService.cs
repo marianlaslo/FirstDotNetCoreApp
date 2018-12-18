@@ -29,17 +29,24 @@ namespace FirstDotNetCoreApp.BusinessLayer.Services
 
         public Product CreateProduct(Product product)
         {
-            return _productRepository.Create(product);
+            var prod = _productRepository.Create(product);
+            _productRepository.Save();
+
+            return prod;
         }
 
         public Product UpdateProduct(Product product)
         {
-            return _productRepository.Update(product);
+            var prod = _productRepository.Update(product);
+            _productRepository.Save();
+
+            return prod;
         }
 
         public void DeleteProduct(int id)
         {
             _productRepository.Delete(id);
+            _productRepository.Save();
         }
     }
 }

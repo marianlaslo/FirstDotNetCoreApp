@@ -30,12 +30,18 @@ namespace FirstDotNetCoreApp.BusinessLayer.Services
 
         public FormFile CreateFormFile(FormFile formFile)
         {
-            return _formFileRepository.Create(formFile);
+            var file = _formFileRepository.Create(formFile);
+            _formFileRepository.Save();
+
+            return file;
         }
 
         public FormFile UpdateFormFile(FormFile formFile)
         {
-            return _formFileRepository.Update(formFile);
+            var file = _formFileRepository.Update(formFile);
+            _formFileRepository.Save();
+
+            return file;
         }
 
         public void DeleteFormFile(int id)
