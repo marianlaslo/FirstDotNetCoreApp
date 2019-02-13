@@ -1,7 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using FirstDotNetCoreApp.BusinessLayer.Services.Abstractions;
+using FirstDotNetCoreApp.Mappers;
 using FirstDotNetCoreApp.Models;
+using FirstDotNetCoreApp.Models.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FirstDotNetCoreApp.Controllers
@@ -19,9 +21,10 @@ namespace FirstDotNetCoreApp.Controllers
 
         // GET api/products
         [HttpGet]
-        public ActionResult<IEnumerable<Product>> Get()
+        public ActionResult<IEnumerable<ProductViewModel>> Get()
         {
-            var products = _productService.GetProducts();
+            var mapper = new ProductMapper();
+            var products = _productService.GetProducts().Select(mapper.Convert);
 
             return products.ToList();
         }
