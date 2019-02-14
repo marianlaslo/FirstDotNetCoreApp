@@ -7,11 +7,15 @@ using FirstDotNetCoreApp.Models.ViewModels;
 
 namespace FirstDotNetCoreApp.Mappers
 {
-    public class ProductMapper 
+    public class ProductMapper : IEntityMapper<ProductViewModel, Product>
     {
         public ProductViewModel Convert(Product product)
         {
-            var productVm = new ProductViewModel();
+            var productVm = new ProductViewModel
+            {
+                Name = product.Name,
+                Category = product.Category
+            };
 
             return productVm;
         }

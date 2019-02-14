@@ -11,7 +11,15 @@ namespace FirstDotNetCoreApp.Mappers
     {
         public FormFileViewModel Convert(FormFile model)
         {
-            throw new NotImplementedException();
+            var formFileVm = new FormFileViewModel
+            {
+                Name = model.Name,
+                ContentType = model.ContentType,
+                Data = model.Data,
+                Length = model.Length
+            };
+
+            return formFileVm;
         }
     }
 }

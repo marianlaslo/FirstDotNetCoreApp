@@ -38,7 +38,12 @@ namespace FirstDotNetCoreApp.DataAccess.Repositories.Abstractions
 
         public T Update(T entity)
         {
+            var castedEntity = (IEntity)entity;
+            castedEntity.ModifiedDate = DateTime.Now;
+            castedEntity.Version++;
+
             MyDbContext.Set<T>().Update(entity);
+            MyDbContext.Entry(castedEntity).Property(x => x.CreateDate).IsModified = false;
             return entity;
         }
 

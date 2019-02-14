@@ -9,6 +9,9 @@ using FirstDotNetCoreApp.Helpers;
 using FirstDotNetCoreApp.DataAccess;
 using FirstDotNetCoreApp.DataAccess.Repositories;
 using FirstDotNetCoreApp.DataAccess.Repositories.Abstractions;
+using FirstDotNetCoreApp.Mappers;
+using FirstDotNetCoreApp.Models;
+using FirstDotNetCoreApp.Models.ViewModels;
 using Microsoft.EntityFrameworkCore;
 
 namespace FirstDotNetCoreApp
@@ -46,6 +49,8 @@ namespace FirstDotNetCoreApp
             services.AddScoped<IFormFileRepository, FormFileRepository>();
             services.AddScoped<IProductService, ProductService>();
             services.AddScoped<IFormFileService, FormFileService>();
+            services.AddScoped<IEntityMapper<ProductViewModel, Product>, ProductMapper>();
+            services.AddScoped<IEntityMapper<FormFileViewModel, FormFile>, FormFileMapper>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

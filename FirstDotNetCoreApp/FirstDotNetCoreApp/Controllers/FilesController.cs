@@ -4,7 +4,9 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using FirstDotNetCoreApp.BusinessLayer.Services.Abstractions;
+using FirstDotNetCoreApp.Mappers;
 using FirstDotNetCoreApp.Models;
+using FirstDotNetCoreApp.Models.ViewModels;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -17,17 +19,21 @@ namespace FirstDotNetCoreApp.Controllers
     {
         private readonly IHostingEnvironment _hostingEnvironment;
         private readonly IFormFileService _formFileService;
+        private readonly IEntityMapper<FormFileViewModel, FormFile> _formFileMapper;
 
-        public FilesController(IHostingEnvironment hostingEnvironment, IFormFileService formFileService)
+        public FilesController(IHostingEnvironment hostingEnvironment, 
+            IFormFileService formFileService,
+            IEntityMapper<FormFileViewModel, FormFile> formFileMapper)
         {
             _hostingEnvironment = hostingEnvironment;
             _formFileService = formFileService;
+            _formFileMapper = formFileMapper;
         }
 
         [HttpGet]
         public ActionResult<IEnumerable<FormFile>> Get()
         {
-            var formFiles = _formFileService.GetFormFiles();
+            var formFiles = _formFileService.GetFormFiles().Select(_formFileMapper.Convert);
 
             return Ok(formFiles);
         }

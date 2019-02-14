@@ -13,36 +13,38 @@ namespace FirstDotNetCoreApp.Controllers
     public class ProductsController : ControllerBase
     {
         private readonly IProductService _productService;
+        private readonly IEntityMapper<ProductViewModel, Product> _productMapper;
 
-        public ProductsController(IProductService productService)
+        public ProductsController(IProductService productService, 
+            IEntityMapper<ProductViewModel, Product> productMapper)
         {
             _productService = productService;
+            _productMapper = productMapper;
         }
 
         // GET api/products
         [HttpGet]
         public ActionResult<IEnumerable<ProductViewModel>> Get()
         {
-            var mapper = new ProductMapper();
-            var products = _productService.GetProducts().Select(mapper.Convert);
+            var products = _productService.GetProducts().Select(_productMapper.Convert);
 
-            return products.ToList();
+            return Ok(products);
         }
 
         // GET api/products/id
         [HttpGet("{id}")]
-        public ActionResult<Product> Get(int id)
+        public ActionResult<ProductViewModel> Get(int id)
         {
-            var product = _productService.GetProduct(id);
+            var product = _productMapper.Convert(_productService.GetProduct(id));
 
-            return product;
+            return Ok(product);
         }
 
         // POST api/products
         [HttpPost]
         public ActionResult Post([FromBody] Product product)
         {
-            var newProduct = _productService.CreateProduct(product);
+            var newProduct = _productMapper.Convert(_productService.CreateProduct(product));
 
             return Ok(newProduct);
         }
@@ -51,7 +53,8 @@ namespace FirstDotNetCoreApp.Controllers
         [HttpPut("{id}")]
         public ActionResult Put(int id, [FromBody] Product product)
         {
-            var updatedProduct = _productService.UpdateProduct(product);
+            product.Id = id;
+            var updatedProduct = _productMapper.Convert(_productService.UpdateProduct(product));
 
             return Ok(updatedProduct);
         }
