@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Linq.Expressions;
 using FirstDotNetCoreApp.Models.Abstractions;
+using Microsoft.EntityFrameworkCore;
 
 namespace FirstDotNetCoreApp.DataAccess.Repositories.Abstractions
 {
@@ -36,14 +37,13 @@ namespace FirstDotNetCoreApp.DataAccess.Repositories.Abstractions
             return entity;
         }
 
-        public T Update(T entity)
+        public T Update(T entity, params string[] properties)
         {
-            var castedEntity = (IEntity)entity;
-            castedEntity.ModifiedDate = DateTime.Now;
-            castedEntity.Version++;
+            foreach (var column in properties)
+            {
+                MyDbContext.Entry(entity).Property(column).IsModified = true;
+            }
 
-            MyDbContext.Set<T>().Update(entity);
-            MyDbContext.Entry(castedEntity).Property(x => x.CreateDate).IsModified = false;
             return entity;
         }
 

@@ -37,10 +37,7 @@ namespace FirstDotNetCoreApp.BusinessLayer.Services
 
         public Product UpdateProduct(Product product)
         {
-            var prodDb = GetProduct(product.Id);
-            prodDb.Name = product.Name;
-            prodDb.Category = product.Category;
-            var prod = _productRepository.Update(prodDb);
+            var prod = _productRepository.Update(product, nameof(Product.Name), nameof(Product.Category));
             _productRepository.Save();
 
             return prod;

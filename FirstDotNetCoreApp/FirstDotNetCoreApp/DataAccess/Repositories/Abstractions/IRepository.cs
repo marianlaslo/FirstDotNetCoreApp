@@ -15,7 +15,7 @@ namespace FirstDotNetCoreApp.DataAccess.Repositories.Abstractions
 
         T Create(T entity);
 
-        T Update(T entity);
+        T Update(T entity, params string[] properties);
 
         void Delete<TId>(TId id);
 
