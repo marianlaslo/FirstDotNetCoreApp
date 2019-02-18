@@ -65,7 +65,7 @@ namespace FirstDotNetCoreApp.Migrations
                     b.ToTable("Products");
 
                     b.HasData(
-                        new { Id = -1, Category = "Category1", CreateDate = new DateTime(2018, 12, 6, 16, 10, 12, 651, DateTimeKind.Local), Name = "Product1", Version = 0 }
+                        new { Id = -1, Category = "Category1", CreateDate = new DateTime(2019, 2, 18, 13, 47, 42, 955, DateTimeKind.Local), Name = "Product1", Version = 0 }
                     );
                 });
 #pragma warning restore 612, 618

@@ -1,4 +1,7 @@
-﻿using FirstDotNetCoreApp.Models.Abstractions;
+﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.ComponentModel.DataAnnotations.Schema;
+using FirstDotNetCoreApp.Models.Abstractions;
 
 namespace FirstDotNetCoreApp.Models
 {
@@ -7,11 +10,12 @@ namespace FirstDotNetCoreApp.Models
         public string Name { get; set; }
 
         public string Category { get; set; }
-    }
 
-    //Func<v1, v2, decimalSalariu>
-    //{Marian, SlariuMiddle}
-    //{Andrian, SalariuSenior}
-    // decimalSalariu SlariuMiddle(decimal v1, decimal v2)
-    // decimalSalariu SalariuSenior(decimal v1, decimal v2)
+        public int ManufacturerId { get; set; }
+
+        [ForeignKey("ManufacturerId")]
+        public Manufacturer Manufacturer { get; set; }
+
+        public HashSet<ProductIngredient> ProductIngredients { get; set; }
+    }
 }
