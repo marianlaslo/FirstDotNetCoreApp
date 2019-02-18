@@ -13,6 +13,16 @@
     <Compile Remove="Migrations\20181127144554_MakeIdsIdentity.Designer.cs" />
     <Compile Remove="Migrations\20181127144805_MakeIdsIdentity.cs" />
     <Compile Remove="Migrations\20181127144805_MakeIdsIdentity.Designer.cs" />
+    <Compile Remove="Migrations\20190218094708_VersionTriggerOnProducts.cs" />
+    <Compile Remove="Migrations\20190218094708_VersionTriggerOnProducts.Designer.cs" />
+    <Compile Remove="Migrations\20190218095249_ModifiedDateTriggerOnProducts.cs" />
+    <Compile Remove="Migrations\20190218095249_ModifiedDateTriggerOnProducts.Designer.cs" />
+    <Compile Remove="Migrations\20190218095901_VersionAndModifiedDateForProduct.cs" />
+    <Compile Remove="Migrations\20190218095901_VersionAndModifiedDateForProduct.Designer.cs" />
+    <Compile Remove="Migrations\20190218100649_VersionAndModifiedDateForFile.cs" />
+    <Compile Remove="Migrations\20190218100649_VersionAndModifiedDateForFile.Designer.cs" />
+    <Compile Remove="Migrations\20190218114426_VersionAndModifiedDateForProducts.cs" />
+    <Compile Remove="Migrations\20190218114426_VersionAndModifiedDateForProducts.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>
