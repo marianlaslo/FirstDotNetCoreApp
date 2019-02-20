@@ -14,5 +14,10 @@ namespace FirstDotNetCoreApp.Models
         public string Address { get; set; }
 
         public HashSet<Product> Products { get; set; }
+
+        public Manufacturer()
+        {
+            Products = new HashSet<Product>();
+        }
     }
 }

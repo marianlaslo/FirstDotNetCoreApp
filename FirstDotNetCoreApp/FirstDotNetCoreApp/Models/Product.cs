@@ -17,5 +17,10 @@ namespace FirstDotNetCoreApp.Models
         public Manufacturer Manufacturer { get; set; }
 
         public HashSet<ProductIngredient> ProductIngredients { get; set; }
+
+        public Product()
+        {
+            ProductIngredients = new HashSet<ProductIngredient>();
+        }
     }
 }
