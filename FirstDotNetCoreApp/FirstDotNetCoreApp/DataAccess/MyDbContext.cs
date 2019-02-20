@@ -7,7 +7,12 @@ using System.Threading.Tasks;
 
 namespace FirstDotNetCoreApp.DataAccess
 {
-    public class MyDbContext : DbContext
+    public interface IDbContext
+    {
+        
+    }
+
+    public class MyDbContext : DbContext, IDbContext
     {
         public MyDbContext(DbContextOptions<MyDbContext> options)
             : base(options)

@@ -1,3 +1,6 @@
 /FirstDotNetCoreApp/.vs
 /FirstDotNetCoreApp/FirstDotNetCoreApp/obj
 /FirstDotNetCoreApp/FirstDotNetCoreApp/bin
+/FirstDotNetCoreApp/FirstDotNetCoreApp.Tests/bin
+/FirstDotNetCoreApp/FirstDotNetCoreApp.Tests/obj
+/FirstDotNetCoreApp/FirstDotNetCoreApp/FirstDotNetCoreApp.csproj.user
