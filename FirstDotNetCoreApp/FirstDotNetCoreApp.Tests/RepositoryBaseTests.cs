@@ -13,7 +13,7 @@ namespace FirstDotNetCoreApp.Tests
     public class RepositoryBaseTests
     {
         [Fact]
-        public void Create_CreateEntityAndSave_EntityIsCreated()
+        public void Create_NewEntity_EntityIsCreated()
         {
             // arrange
             var options = new DbContextOptionsBuilder<MyDbContext>()
@@ -39,7 +39,7 @@ namespace FirstDotNetCoreApp.Tests
         }
 
         [Fact]
-        public void Create_CreateEntityThatExists_EntityIsNotCreated()
+        public void Create_CreateEntityThatExists_ExceptionIsThrown()
         {
             // arrange
             var options = new DbContextOptionsBuilder<MyDbContext>()
@@ -110,7 +110,7 @@ namespace FirstDotNetCoreApp.Tests
             Product returnedEntity = Disposable.Using(() => new MyDbContext(options), context =>
             {
                 var repo = new ProductRepository(context);
-                return repo.GetById(5);
+                return repo.GetById(0);
             });
 
             //assert
@@ -122,11 +122,11 @@ namespace FirstDotNetCoreApp.Tests
         {
             // arrange
             var options = new DbContextOptionsBuilder<MyDbContext>()
-                .UseInMemoryDatabase(databaseName: "InMemory_FirstDotNetCoreApp")
+                .UseInMemoryDatabase(databaseName: "InMemory_FirstDotNetCoreApp_ForFindAll")
                 .Options;
-            var entity1 = new Product { Id = 5 };
-            var entity2 = new Product { Id = 6 };
-            var entity3 = new Product { Id = 7 };
+            var entity1 = new Product { Id = 1 };
+            var entity2 = new Product { Id = 2 };
+            var entity3 = new Product { Id = 3 };
 
             // act
             Disposable.Using(() => new MyDbContext(options), context =>
@@ -154,8 +154,8 @@ namespace FirstDotNetCoreApp.Tests
             var options = new DbContextOptionsBuilder<MyDbContext>()
                 .UseInMemoryDatabase(databaseName: "InMemory_FirstDotNetCoreApp")
                 .Options;
-            var entity1 = new Product { Id = 8, Name = "Product1", Category = "Category1" };
-            var entity2 = new Product { Id = 9, Name = "Product1", Category = "Category2" };
+            var entity1 = new Product { Id = 5, Name = "Product1", Category = "Category1" };
+            var entity2 = new Product { Id = 6, Name = "Product1", Category = "Category2" };
 
             // act
             Disposable.Using(() => new MyDbContext(options), context =>
@@ -173,6 +173,64 @@ namespace FirstDotNetCoreApp.Tests
 
             //assert
             itemMatchingCondition.Should().BeEquivalentTo(entity1);
+        }
+
+        [Fact]
+        public void Update_EntityExists_EntityFieldsAreUpdated()
+        {
+            // arrange
+            var options = new DbContextOptionsBuilder<MyDbContext>()
+                .UseInMemoryDatabase(databaseName: "InMemory_FirstDotNetCoreApp")
+                .Options;
+            var entity = new Product { Id = 7, Name = "ProductToUpdate", Category = "Category" };
+            
+            // act
+            Disposable.Using(() => new MyDbContext(options), context =>
+            {
+                var repo = new ProductRepository(context);
+                repo.Create(entity);
+                repo.Save();
+            });
+            Product updatedEntity = Disposable.Using(() => new MyDbContext(options), context =>
+            {
+                var repo = new ProductRepository(context);
+                entity.Name = "UpdatedName";
+                entity.Category = "NotCategory";
+                repo.Update(entity, nameof(Product.Name), nameof(Product.Category));
+                repo.Save();
+                return repo.GetById(entity.Id);
+            });
+
+            // assert
+            updatedEntity.Should().BeEquivalentTo(entity);
+        }
+
+        [Fact]
+        public void Update_EntityDoesNotExists_ExceptionIsThrown()
+        {
+            // arrange
+            var options = new DbContextOptionsBuilder<MyDbContext>()
+                .UseInMemoryDatabase(databaseName: "InMemory_FirstDotNetCoreApp")
+                .Options;
+            var entity = new Product { Id = 8, Name = "ProductToUpdate", Category = "Category" };
+
+            // act
+            Disposable.Using(() => new MyDbContext(options), context =>
+            {
+                var repo = new ProductRepository(context);
+                repo.Create(entity);
+                repo.Save();
+            });
+            Action action = () => Disposable.Using(() => new MyDbContext(options), context =>
+            {
+                var repo = new ProductRepository(context);
+                var entity2 = new Product { Id = 9, Name = "UpdatedProduct" };
+                repo.Update(entity2, nameof(Product.Name));
+                repo.Save();
+            });
+
+            //assert
+            action.Should().Throw<DbUpdateConcurrencyException>(); ;
         }
     }
 }
