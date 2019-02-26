@@ -1,11 +1,15 @@
 ﻿
+using System;
 using FirstDotNetCoreApp.BusinessLayer.Services;
 using FirstDotNetCoreApp.DataAccess;
 using FirstDotNetCoreApp.DataAccess.Repositories;
+using FirstDotNetCoreApp.DataAccess.Repositories.Abstractions;
 using FirstDotNetCoreApp.Extensions;
 using FirstDotNetCoreApp.Models;
 using FluentAssertions;
 using Microsoft.EntityFrameworkCore;
+using NSubstitute;
+using NSubstitute.ExceptionExtensions;
 using Xunit;
 
 namespace FirstDotNetCoreApp.Tests
@@ -15,28 +19,27 @@ namespace FirstDotNetCoreApp.Tests
         [Fact]
         public void Create_NewProduct_NewProductIsCreated()
         {
-            // arrange
-            var options = new DbContextOptionsBuilder<MyDbContext>()
-                .UseInMemoryDatabase(databaseName: "InMemory_FirstDotNetCoreApp")
-                .Options;
+            // arrange 
+            var repo = NSubstitute.Substitute.For<IProductRepository>();
+            var service = new ProductService(repo);
             var product = new Product {Id = 1, Name = "NewProduct"};
+            repo.Create(product).Returns(product);
 
             // act
-            Disposable.Using(() => new MyDbContext(options), context =>
-            {
-                var repo = new ProductRepository(context);
-                var service = new ProductService(repo);
-                service.CreateProduct(product);
-            });
-            var newProduct = Disposable.Using(() => new MyDbContext(options), context =>
-            {
-                var repo = new ProductRepository(context);
-                var service = new ProductService(repo);
-                return service.GetProduct(product.Id);
-            });
+            var createdProduct = service.CreateProduct(product);
 
             // assert
-            newProduct.Should().BeEquivalentTo(product);
+            createdProduct.Should().BeEquivalentTo(product);
+        }
+
+        [Fact]
+        public void Get()
+        {
+            // arrange
+
+            // act
+
+            // assert
         }
     }
 }
