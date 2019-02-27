@@ -4,6 +4,7 @@ using FirstDotNetCoreApp.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 
 namespace FirstDotNetCoreApp.BusinessLayer.Services
 {
@@ -19,6 +20,12 @@ namespace FirstDotNetCoreApp.BusinessLayer.Services
         public IEnumerable<Product> GetProducts()
         {
             return _productRepository.FindAll();
+        }
+
+        public IEnumerable<Product> GetProductsByCondition(Expression<Func<Product, bool>> condition)
+        {
+            var productsByCondition = _productRepository.FindByCondition(condition);
+            return productsByCondition;
         }
 
         public Product GetProduct(int id)
