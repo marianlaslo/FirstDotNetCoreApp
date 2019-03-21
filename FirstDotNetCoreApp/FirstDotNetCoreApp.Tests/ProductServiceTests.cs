@@ -67,7 +67,7 @@ namespace FirstDotNetCoreApp.Tests
         }
 
         [Fact]
-        public void GetByCondition_MultipleProductsDifferentCategories_ReturnByCertainCategory()
+        public void GetProductsByCondition_MultipleProductsDifferentCategories_ReturnByCertainCategory()
         {
             // arrange
             var repo = NSubstitute.Substitute.For<IProductRepository>();
@@ -83,7 +83,35 @@ namespace FirstDotNetCoreApp.Tests
 
             // assert
             productsByCondition.Should().BeEquivalentTo(product1);
+        }
 
+        [Fact]
+        public void UpdateProduct_ProductExists_ProductDataIsUpdated()
+        {
+            // arrange
+            var repo = NSubstitute.Substitute.For<IProductRepository>();
+            var service = new ProductService(repo);
+            var product = new Product { Id = 1, Name = "ExistingProduct", Category = "Existing Category" };
+            product.Name = "UpdatedProduct";
+            product.Category = "UpdatedCategory";
+            repo.Update(product, nameof(product.Name), nameof(product.Category))
+                .Returns(product);
+
+            // act
+            var updatedProduct = service.UpdateProduct(product);
+
+            // assert
+            updatedProduct.Should().BeEquivalentTo(product);
+        }
+
+        [Fact]
+        public void DeleteProduct_ProductExists_ProductIsRemoved()
+        {
+            // arrange
+            var repo = NSubstitute.Substitute.For<IProductRepository>();
+            var service = new ProductService(repo);
+            var product = new Product {Id = 1, Name = "ExistingProduct", Category = "ExistingCategory"};
+            //repo.Delete(product.Id).
         }
     }
 }
