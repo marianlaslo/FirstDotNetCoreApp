@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using FirstDotNetCoreApp.ActionFilters;
 using FirstDotNetCoreApp.BusinessLayer.Services.Abstractions;
 using FirstDotNetCoreApp.Mappers;
 using FirstDotNetCoreApp.Models;
@@ -42,6 +43,7 @@ namespace FirstDotNetCoreApp.Controllers
 
         // POST api/products
         [HttpPost]
+        [ServiceFilter(typeof(ValidationFilterAttribute))]
         public ActionResult Post([FromBody] Product product)
         {
             var newProduct = _productMapper.Convert(_productService.CreateProduct(product));
