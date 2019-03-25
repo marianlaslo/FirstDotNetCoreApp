@@ -35,8 +35,11 @@ namespace FirstDotNetCoreApp.DataAccess
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<Manufacturer>()
+                .HasData(new Manufacturer {Id = 1, Address = "Address1", CreateDate = DateTime.Now, Name = "Manufacturer1"});
+
             modelBuilder.Entity<Product>()
-                .HasData(new Product { Id = -1, Category = "Category1", Name = "Product1" });
+                .HasData(new Product { Id = 1, Category = "Category1", Name = "Product1", ManufacturerId = 1 });
 
             modelBuilder.Entity<ProductIngredient>()
                 .HasKey(t => new { t.ProductId, t.IngredientId });
