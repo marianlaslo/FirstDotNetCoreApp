@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Linq;
 using System.Linq.Expressions;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace FirstDotNetCoreApp.DataAccess.Repositories.Abstractions
 {

@@ -2,7 +2,6 @@
 using System.Linq;
 using System.Linq.Expressions;
 using FirstDotNetCoreApp.Models.Abstractions;
-using Microsoft.EntityFrameworkCore;
 
 namespace FirstDotNetCoreApp.DataAccess.Repositories.Abstractions
 {
