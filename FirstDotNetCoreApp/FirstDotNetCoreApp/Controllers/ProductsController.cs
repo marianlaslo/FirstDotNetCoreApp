@@ -34,7 +34,7 @@ namespace FirstDotNetCoreApp.Controllers
 
         // GET api/products/id
         [HttpGet("{id}")]
-        public ActionResult<ProductViewModel> Get(int id)
+        public ActionResult Get(int id)
         {
             var product = _productMapper.Convert(_productService.GetProduct(id));
 
