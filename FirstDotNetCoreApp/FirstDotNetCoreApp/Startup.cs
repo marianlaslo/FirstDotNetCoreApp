@@ -52,7 +52,16 @@ namespace FirstDotNetCoreApp
             services.AddScoped<IFormFileService, FormFileService>();
             services.AddScoped<IEntityMapper<ProductViewModel, Product>, ProductMapper>();
             services.AddScoped<IEntityMapper<FormFileViewModel, FormFile>, FormFileMapper>();
+
             services.AddScoped<ValidationFilterAttribute>();
+
+            services.AddScoped<IManufacturerRepository, ManufacturerRepository>();
+            services.AddScoped<IIngredientRepository, IngredientRepository>();
+            services.AddScoped<IManufacturerService, ManufacturerService>();
+            services.AddScoped<IIngredientService, IngredientService>();
+            services.AddScoped<IEntityMapper<ManufacturerViewModel, Manufacturer>, ManufacturerMapper>();
+            services.AddScoped<IEntityMapper<IngredientViewModel, Ingredient>, IngredientMapper>();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
